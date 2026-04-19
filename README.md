@@ -22,6 +22,7 @@ A simple, beginner-friendly **lead tracking and management system** built with *
 ## ✨ Features
 
 ### Core Features (Fully Functional ✅)
+- **Sign Up** - Create new admin accounts with validation
 - **Add Leads** - Create new leads with name, email, and phone number
 - **View Leads** - Display all leads in a dynamic table
 - **Search Feature** - Filter leads by name or email in real-time
@@ -239,6 +240,12 @@ Username: admin
 Password: 12345
 ```
 
+### Create New Account
+- Go to: `http://localhost/web_project/signup.php`
+- Create username (3-20 characters, letters/numbers/underscores only)
+- Create password (minimum 4 characters)
+- Login with new credentials
+
 > ⚠️ **Note:** Change these credentials in production!
 
 ---
@@ -249,6 +256,7 @@ Password: 12345
 | Page | URL |
 |------|-----|
 | Homepage | `http://localhost/web_project/` |
+| Sign Up | `http://localhost/web_project/signup.php` |
 | Login | `http://localhost/web_project/login.php` |
 | Logout | `http://localhost/web_project/logout.php` |
 | Add Lead | `http://localhost/web_project/pages/add_customer.php` |
@@ -399,6 +407,7 @@ Features:
   ✓ Database setup
   ✓ Database connection
   ✓ Homepage with navigation
+  ✓ Sign up system
   ✓ Login system
   ✓ Add lead feature with validation
   ✓ View leads with pagination
