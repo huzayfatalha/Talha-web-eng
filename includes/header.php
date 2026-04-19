@@ -11,9 +11,9 @@
     <!-- Header section -->
     <header>
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <h1>Lead Tracking AI</h1>
-                <p>Intelligent Lead Management System</p>
+            <div style="text-align: left;">
+                <h1 style="margin: 0; font-size: 32px; font-weight: bold; color: white; letter-spacing: 1px;">Lead Tracking AI</h1>
+                <p style="margin: 5px 0 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: 500; letter-spacing: 0.5px;">✨ Intelligent Lead Management System</p>
             </div>
             <?php
             // Start session if not started
