@@ -1,0 +1,306 @@
+================================================================================
+                    CRM PROJECT - COMPLETE ROADMAP
+================================================================================
+
+Project: Student CRM System
+Technology: PHP (Procedural) + MySQL + HTML + CSS + JavaScript
+Server: XAMPP (localhost)
+Database: crm_project
+
+================================================================================
+                           PROGRESS TRACKING
+================================================================================
+
+LEGEND:
+  ✅  = COMPLETED & WORKING
+  🔄  = IN PROGRESS
+  ⏳  = TODO / NOT STARTED
+  ⚠️  = NEEDS TESTING
+
+================================================================================
+                       PHASE 1: PROJECT SETUP
+================================================================================
+
+✅  STEP 1.1 - XAMPP Installation
+    ├─ Apache Server running
+    ├─ MySQL Server running
+    └─ Project folder created at: htdocs/web_project
+
+✅  STEP 1.2 - Project Folder Structure
+    ├─ web_project/
+    ├─ ├── index.php                    ✅ Created
+    ├─ ├── db.php                       ✅ Created
+    ├─ ├── css/
+    ├─ │   └── style.css                ✅ Created
+    ├─ ├── js/
+    ├─ │   └── script.js                ✅ Created
+    ├─ ├── includes/
+    ├─ │   ├── header.php               ✅ Created
+    ├─ │   └── footer.php               ✅ Created
+    ├─ └── pages/
+    ├─     ├── add_customer.php         ✅ Created
+    ├─     ├── view_customers.php       ✅ Created
+    ├─     ├── edit_customer.php        ⏳ TODO
+    ├─     └── delete_customer.php      ✅ (Integrated in view_customers.php)
+    └─ ├── roadmap.txt                  ✅ Created
+
+================================================================================
+                       PHASE 2: DATABASE SETUP
+================================================================================
+
+✅  STEP 2.1 - Create Database
+    └─ Database: crm_project            ✅ Created
+
+✅  STEP 2.2 - Create Customers Table
+    └─ Table: customers                 ✅ Created
+       ├─ id (INT, AUTO_INCREMENT, PK)
+       ├─ name (VARCHAR 100)
+       ├─ email (VARCHAR 100)
+       ├─ phone (VARCHAR 20)
+       └─ created_at (TIMESTAMP)
+
+================================================================================
+                       PHASE 3: CORE FEATURES
+================================================================================
+
+✅  STEP 3.1 - Database Connection (db.php)
+    ├─ MySQLi connection                ✅ Working
+    ├─ Error handling                   ✅ Implemented
+    ├─ Character set UTF-8              ✅ Set
+    └─ Used in all pages                ✅ Yes
+
+✅  STEP 3.2 - Header & Navigation (includes/header.php)
+    ├─ HTML structure (DOCTYPE, head)   ✅ Done
+    ├─ CSS linking                      ✅ Done
+    ├─ Navigation menu                  ✅ Done
+    │   ├─ Home
+    │   ├─ Add Customer
+    │   └─ View Customers
+    └─ Absolute path fixes              ✅ Fixed
+
+✅  STEP 3.3 - Footer (includes/footer.php)
+    ├─ Footer text                      ✅ Done
+    ├─ JavaScript linking               ✅ Done
+    ├─ HTML closing tags                ✅ Done
+    └─ "Made by Student" removed        ✅ Fixed
+
+✅  STEP 3.4 - Homepage (index.php)
+    ├─ Welcome message                  ✅ Done
+    ├─ Feature list                     ✅ Done
+    ├─ Navigation links                 ✅ Working
+    └─ Basic layout                     ✅ Done
+
+✅  STEP 3.5 - CSS Styling (css/style.css)
+    ├─ Header styling                   ✅ Done
+    ├─ Navigation styling               ✅ Done
+    ├─ Form styling                     ✅ Done
+    ├─ Table styling                    ✅ Done
+    ├─ Button styling                   ✅ Done
+    ├─ Footer styling                   ✅ Done
+    └─ Responsive design                ✅ Basic
+
+✅  STEP 3.6 - JavaScript Basics (js/script.js)
+    ├─ Console.log test                 ✅ Done
+    ├─ Delete confirmation              ✅ Function created
+    └─ Form validation                  ⏳ Basic only
+
+✅  STEP 4 - ADD CUSTOMER FEATURE (pages/add_customer.php)
+    ├─ HTML form                        ✅ Created
+    │   ├─ Name field
+    │   ├─ Email field
+    │   └─ Phone field
+    ├─ POST method                      ✅ Implemented
+    ├─ Input validation                 ✅ Basic (name, email required)
+    ├─ MySQL INSERT                     ✅ Working
+    ├─ Success message                  ✅ Shows after add
+    ├─ Auto-redirect                    ✅ After 2 seconds
+    └─ Security (mysqli_escape)         ✅ Basic protection
+
+✅  STEP 5 - DELETE CUSTOMER (pages/view_customers.php)
+    ├─ Delete method                    ✅ GET method with ID
+    ├─ Confirmation alert               ✅ JavaScript confirm()
+    ├─ MySQL DELETE                     ✅ Working
+    ├─ Success message                  ✅ Shows after delete
+    ├─ Redirect after delete            ✅ Auto-refresh
+    └─ Security check                   ✅ Basic (mysqli_escape)
+
+✅  STEP 6 - VIEW CUSTOMERS (pages/view_customers.php)
+    ├─ Display all customers            ✅ Working
+    ├─ Table structure                  ✅ Clean layout
+    ├─ Columns shown:
+    │   ├─ ID
+    │   ├─ Name
+    │   ├─ Email
+    │   ├─ Phone
+    │   └─ Date Added
+    ├─ Action buttons                   ✅ Delete (Edit pending)
+    ├─ Empty state message              ✅ "No customers found"
+    └─ Database closure                 ✅ mysqli_close()
+
+================================================================================
+                       PHASE 4: EDIT FEATURE (TODO)
+================================================================================
+
+✅  STEP 7 - EDIT CUSTOMER (pages/edit_customer.php)
+    ├─ Get customer by ID               ✅ Working
+    ├─ Load existing data                ✅ Pre-filled in form
+    ├─ Pre-fill form fields              ✅ Shows current values
+    ├─ Display read-only created_at      ✅ Disabled field
+    ├─ Update database                   ✅ MySQL UPDATE query
+    ├─ Show success message              ✅ "Customer updated successfully!"
+    ├─ Redirect after update             ✅ Auto-redirect in 2 seconds
+    └─ Back to customer list link        ✅ Manual link provided
+
+================================================================================
+                       PHASE 5: SEARCH FEATURE (TODO)
+================================================================================
+
+⏳  STEP 8 - SEARCH FUNCTION
+    ├─ Search input field                ⏳ TODO
+    ├─ Search by name                    ⏳ TODO
+    ├─ Search by email                   ⏳ TODO
+    ├─ Filter results                    ⏳ TODO
+    └─ Display search results            ⏳ TODO
+
+================================================================================
+                       PHASE 6: ADVANCED FEATURES (TODO)
+================================================================================
+
+⏳  STEP 9 - FORM VALIDATION
+    ├─ JavaScript validation             ⏳ TODO
+    ├─ Email format check                ⏳ TODO
+    ├─ Phone format check                ⏳ TODO
+    ├─ Required field check              ⏳ TODO
+    └─ Error messages                    ⏳ TODO
+
+⏳  STEP 10 - PAGINATION (OPTIONAL)
+    ├─ Paginate customer list            ⏳ TODO
+    ├─ Items per page                    ⏳ TODO
+    ├─ Previous/Next buttons             ⏳ TODO
+    └─ Total count                       ⏳ TODO
+
+⏳  STEP 11 - LOGIN SYSTEM (OPTIONAL)
+    ├─ User login page                   ⏳ TODO
+    ├─ Username/Password fields          ⏳ TODO
+    ├─ Session handling                  ⏳ TODO
+    ├─ Protect pages                     ⏳ TODO
+    ├─ Logout functionality              ⏳ TODO
+    └─ Users table                       ⏳ TODO
+
+⏳  STEP 12 - UI IMPROVEMENTS (OPTIONAL)
+    ├─ Better color scheme               ⏳ TODO
+    ├─ Icons for buttons                 ⏳ TODO
+    ├─ Hover effects                     ⏳ TODO
+    ├─ Modal dialogs                     ⏳ TODO
+    └─ Mobile responsive                 ⏳ TODO
+
+================================================================================
+                       CURRENT STATUS SUMMARY
+================================================================================
+
+✅  COMPLETED:
+    ✓ Database setup
+    ✓ Project structure
+    ✓ Database connection
+    ✓ Homepage
+    ✓ Add customer feature (FULLY WORKING ✅)
+    ✓ View customers (FULLY WORKING ✅)
+    ✓ Delete customer (FULLY WORKING ✅)
+    ✓ Edit customer feature (FULLY WORKING ✅) ← NEW!
+    ✓ Basic CSS styling
+    ✓ Basic JS functionality
+    ✓ Navigation links fixed
+    ✓ Footer cleaned up
+
+⏳  REMAINING:
+    ○ Search function ← NEXT STEP
+    ○ Form validation improvements
+    ○ Pagination
+    ○ Login system (optional)
+    ○ UI improvements (optional)
+
+================================================================================
+                       NEXT STEP: EDIT CUSTOMER
+================================================================================
+
+🎯 STEP 7 - EDIT CUSTOMER FEATURE
+
+Location: pages/edit_customer.php
+
+What we need to do:
+  1. Create edit_customer.php file
+  2. Add "Edit" button in view_customers.php
+  3. Get customer ID from URL parameter
+  4. Load customer data from database
+  5. Display form with pre-filled values
+  6. Allow user to update information
+  7. Update database with new values
+  8. Show success message
+  9. Redirect back to customer list
+
+Files to modify:
+  • pages/edit_customer.php (CREATE NEW)
+  • pages/view_customers.php (ADD EDIT BUTTON)
+
+Expected URL: http://localhost/web_project/pages/edit_customer.php?id=1
+
+================================================================================
+                       HOW TO TEST CURRENT BUILD
+================================================================================
+
+✅ TEST 1: Homepage
+   URL: http://localhost/web_project/
+   Expected: Homepage with welcome message and navigation links
+
+✅ TEST 2: Add Customer
+   URL: http://localhost/web_project/pages/add_customer.php
+   Expected: Form with Name, Email, Phone fields
+   Action: Fill form and click "Add Customer"
+   Result: "Customer added successfully!" message, then redirect to View page
+
+✅ TEST 3: View Customers
+   URL: http://localhost/web_project/pages/view_customers.php
+   Expected: Table with all customers
+   Columns: ID, Name, Email, Phone, Date Added, Actions
+
+✅ TEST 4: Delete Customer
+   In View page: Click Delete button
+   Expected: Confirmation dialog
+   Result: Customer deleted, table refreshed
+
+================================================================================
+                       IMPORTANT NOTES
+================================================================================
+
+Database Connection:
+  • Host: localhost
+  • Username: root
+  • Password: (empty)
+  • Database: crm_project
+  • Table: customers
+
+Paths Used (Absolute):
+  • /web_project/css/style.css
+  • /web_project/js/script.js
+  • /web_project/pages/...
+  • /web_project/index.php
+
+Security Notes:
+  • Using mysqli_real_escape_string for basic protection
+  • NO prepared statements (keeping it beginner-friendly)
+  • NO password hashing (yet)
+  • NO user authentication (optional advanced feature)
+
+Code Style:
+  • Procedural PHP (no frameworks)
+  • Simple comments like student code
+  • Clear variable names
+  • Basic error handling
+
+================================================================================
+                       END OF ROADMAP
+================================================================================
+
+Last Updated: 2026-04-18
+Status: Ready to proceed to STEP 7 - EDIT CUSTOMER FEATURE
+
