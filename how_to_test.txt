@@ -1,0 +1,818 @@
+================================================================================
+                    LEAD TRACKING AI - COMPLETE TESTING GUIDE
+================================================================================
+
+This file contains step-by-step testing instructions for the Lead Tracking AI
+application. Follow each test in order to verify all features work correctly.
+
+================================================================================
+                                STEP 0: SETUP
+================================================================================
+
+Do this BEFORE testing anything else:
+
+1. START XAMPP:
+   - Open XAMPP Control Panel
+   - Click "Start" next to Apache
+   - Click "Start" next to MySQL
+   - Wait for green checkmarks (✓ Running)
+   - Both should show as running
+
+2. CREATE DATABASE:
+   - Go to: http://localhost/phpmyadmin/
+   - Click "SQL" tab at top
+   - Copy and paste this code:
+
+   CREATE DATABASE IF NOT EXISTS crm_project;
+   USE crm_project;
+
+   CREATE TABLE customers (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       email VARCHAR(100) NOT NULL,
+       phone VARCHAR(20),
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+   CREATE TABLE admins (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       username VARCHAR(50) NOT NULL UNIQUE,
+       password VARCHAR(255) NOT NULL
+   );
+
+   INSERT INTO admins (username, password) VALUES ('admin', '12345');
+
+   - Click "Go" button
+   - You should see success message
+   - Database "crm_project" should appear in left sidebar
+
+3. VERIFY DATABASE CREATED:
+   - You should see "crm_project" database in phpMyAdmin left panel
+   - Click on it to expand
+   - You should see "customers" and "admins" tables
+
+✅ SETUP COMPLETE - Now start testing!
+
+================================================================================
+                              TEST 1: LOGIN SYSTEM
+================================================================================
+
+URL: http://localhost/web_project/login.php
+
+TEST 1.1 - TRY EMPTY LOGIN
+  Step 1: Go to login page
+  Step 2: Leave username and password empty
+  Step 3: Click "Login" button
+  Expected Result: ✅ See error message (validation fails)
+
+TEST 1.2 - TRY WRONG CREDENTIALS
+  Step 1: Go to login page
+  Step 2: Username: type "wrong"
+  Step 3: Password: type "wrong123"
+  Step 4: Click "Login" button
+  Expected Result: ✅ See error message "Invalid credentials"
+
+TEST 1.3 - LOGIN SUCCESSFULLY
+  Step 1: Go to login page
+  Step 2: Username: type "admin"
+  Step 3: Password: type "12345"
+  Step 4: Click "Login" button
+  Expected Results:
+    ✅ Login successful message or redirect happens
+    ✅ You are taken to homepage
+    ✅ Session is active (logged in)
+
+TEST 1.4 - CHECK HEADER AFTER LOGIN
+  Step 1: After successful login, check top right
+  Expected Results:
+    ✅ Shows "Welcome, admin"
+    ✅ Shows "Logout" button
+
+================================================================================
+                              TEST 2: HOMEPAGE
+================================================================================
+
+URL: http://localhost/web_project/
+
+TEST 2.1 - CHECK PAGE LOADS
+  Step 1: Go to homepage after login
+  Expected Results:
+    ✅ Page loads without errors
+    ✅ Shows "Welcome to Lead Tracking AI" heading
+    ✅ Shows description text
+
+TEST 2.2 - CHECK NAVIGATION MENU
+  Step 1: Look at top navigation bar
+  Expected Results:
+    ✅ Shows "Home" link
+    ✅ Shows "Add Lead" link
+    ✅ Shows "View Leads" link
+    ✅ All links are clickable
+
+TEST 2.3 - CHECK WELCOME BUTTONS
+  Step 1: Look for two large buttons
+  Expected Results:
+    ✅ "Add New Lead" button visible and clickable
+    ✅ "View All Leads" button visible and clickable
+
+TEST 2.4 - CHECK HEADER
+  Step 1: Look at top of page
+  Expected Results:
+    ✅ Shows "Lead Tracking AI" branding
+    ✅ Shows "Intelligent Lead Management System" subtitle
+    ✅ Shows "Welcome, admin" message
+    ✅ Shows "Logout" button
+
+TEST 2.5 - TEST NAVIGATION LINKS
+  Step 1: Click "Add Lead" from navigation menu
+  Expected Result: ✅ Goes to Add Lead page
+
+  Step 2: Click "Home" from navigation menu
+  Expected Result: ✅ Returns to homepage
+
+  Step 3: Click "View Leads" from navigation menu
+  Expected Result: ✅ Goes to View Leads page
+
+  Step 4: Click "Home" again
+  Expected Result: ✅ Returns to homepage
+
+================================================================================
+                            TEST 3: ADD LEAD FEATURE
+================================================================================
+
+URL: http://localhost/web_project/pages/add_customer.php
+
+TEST 3.1 - FORM DISPLAYS CORRECTLY
+  Step 1: Click "Add New Lead" button or use menu
+  Expected Results:
+    ✅ Page loads with form
+    ✅ Shows heading "Add New Lead"
+    ✅ Form has fields: Name, Email, Phone
+    ✅ Submit button labeled "Add Lead"
+
+TEST 3.2 - TEST EMPTY FIELD VALIDATION
+  Step 1: Leave all fields blank
+  Step 2: Click "Add Lead" button
+  Expected Results:
+    ✅ See error message (red box)
+    ✅ Message should say something like "Name is required!"
+    ✅ Form does NOT submit
+
+TEST 3.3 - TEST NAME TOO SHORT VALIDATION
+  Step 1: Name field: type "J" (only 1 character)
+  Step 2: Email field: type "test@example.com"
+  Step 3: Phone field: leave blank
+  Step 4: Click "Add Lead"
+  Expected Results:
+    ✅ See error message (red box)
+    ✅ Message says: "Name must be at least 2 characters long!"
+    ✅ Form does NOT submit
+
+TEST 3.4 - TEST INVALID EMAIL VALIDATION
+  Step 1: Name field: type "John Doe"
+  Step 2: Email field: type "invalidemail" (NO @ symbol)
+  Step 3: Phone field: leave blank
+  Step 4: Click "Add Lead"
+  Expected Results:
+    ✅ See error message (red box)
+    ✅ Message says: "Please enter a valid email address!"
+    ✅ Form does NOT submit
+
+TEST 3.5 - TEST INVALID PHONE VALIDATION
+  Step 1: Name field: type "John Doe"
+  Step 2: Email field: type "john@example.com"
+  Step 3: Phone field: type "abc123xyz" (non-numeric)
+  Step 4: Click "Add Lead"
+  Expected Result:
+    ✅ See error message about invalid phone format
+
+TEST 3.6 - ADD VALID LEAD #1
+  Step 1: Name field: type "John Doe"
+  Step 2: Email field: type "john@example.com"
+  Step 3: Phone field: type "555-1111"
+  Step 4: Click "Add Lead" button
+  Expected Results:
+    ✅ See success message (green box): "Customer added successfully!"
+    ✅ Wait 2 seconds - auto-redirect to View Leads page
+    ✅ See "John Doe" in the table
+
+TEST 3.7 - ADD VALID LEAD #2
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Alice Smith"
+  Step 3: Email field: type "alice@example.com"
+  Step 4: Phone field: type "555-2222"
+  Step 5: Click "Add Lead" button
+  Expected Results:
+    ✅ Success message shows
+    ✅ Auto-redirects to View Leads
+    ✅ "Alice Smith" appears in table
+
+TEST 3.8 - ADD VALID LEAD #3
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Bob Wilson"
+  Step 3: Email field: type "bob@example.com"
+  Step 4: Phone field: type "555-3333"
+  Step 5: Click "Add Lead" button
+  Expected Results: ✅ Same as above
+
+TEST 3.9 - ADD VALID LEAD #4
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Charlie Brown"
+  Step 3: Email field: type "charlie@example.com"
+  Step 4: Phone field: type "555-4444"
+  Step 5: Click "Add Lead" button
+  Expected Results: ✅ Same as above
+
+TEST 3.10 - ADD VALID LEAD #5
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Diana Prince"
+  Step 3: Email field: type "diana@example.com"
+  Step 4: Phone field: type "555-5555"
+  Step 5: Click "Add Lead" button
+  Expected Results: ✅ Same as above
+
+TEST 3.11 - ADD VALID LEAD #6
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Eve Johnson"
+  Step 3: Email field: type "eve@example.com"
+  Step 4: Phone field: type "555-6666"
+  Step 5: Click "Add Lead" button
+  Expected Results: ✅ Same as above
+
+TEST 3.12 - ADD VALID LEAD #7
+  Step 1: Click "Add Lead" from menu
+  Step 2: Name field: type "Frank Miller"
+  Step 3: Email field: type "frank@example.com"
+  Step 4: Phone field: type "555-7777"
+  Step 5: Click "Add Lead" button
+  Expected Results: ✅ Same as above
+
+IMPORTANT: Add at least 8-10 leads total for pagination testing!
+Continue adding more leads if you want to test pagination more thoroughly.
+
+================================================================================
+                         TEST 4: VIEW LEADS & PAGINATION
+================================================================================
+
+URL: http://localhost/web_project/pages/view_customers.php
+
+TEST 4.1 - TABLE DISPLAYS CORRECTLY
+  Step 1: Click "View Leads" from menu
+  Expected Results:
+    ✅ Page loads with table
+    ✅ Shows heading "View All Leads"
+    ✅ Table has columns: ID | Name | Email | Phone | Date Added | Actions
+    ✅ All previously added leads appear in table
+    ✅ Leads shown in reverse order (newest first)
+
+TEST 4.2 - ACTION BUTTONS VISIBLE
+  Step 1: Look at "Actions" column
+  Expected Results:
+    ✅ Each row has "Edit" button
+    ✅ Each row has "Delete" button
+    ✅ Both buttons are clickable
+
+TEST 4.3 - CHECK TOTAL COUNT (if 6+ leads)
+  Step 1: Look at top of table
+  Expected Result:
+    ✅ Shows "Total Customers: X" (where X is number of leads)
+
+TEST 4.4 - PAGINATION CONTROLS (if 6+ leads)
+  Step 1: Look at bottom of table
+  Expected Results (if you have 6+ leads):
+    ✅ Pagination controls appear
+    ✅ Shows "Page 1 of X" indicator
+    ✅ Shows page numbers: 1, 2, 3, etc.
+    ✅ Shows "← Previous" button (disabled on page 1)
+    ✅ Shows "Next →" button
+
+TEST 4.5 - PAGINATION: 5 LEADS PER PAGE
+  Step 1: Count how many leads appear on page 1
+  Expected Result: ✅ Exactly 5 leads on page 1
+
+  Step 2: Look at leads on page 1
+  Expected Result: ✅ Shows leads 1-5 (or 6-10 if ordered by ID)
+
+TEST 4.6 - PAGINATION: CLICK NEXT PAGE
+  Step 1: Click "Next →" button
+  Expected Results:
+    ✅ Redirects to page 2
+    ✅ URL changes to: ?page=2
+    ✅ Shows "Page 2 of X"
+    ✅ Shows remaining leads (6+)
+    ✅ "← Previous" button now enabled
+
+TEST 4.7 - PAGINATION: CLICK PREVIOUS PAGE
+  Step 1: On page 2, click "← Previous" button
+  Expected Results:
+    ✅ Returns to page 1
+    ✅ Shows original 5 leads
+    ✅ "← Previous" button disabled again
+
+TEST 4.8 - PAGINATION: CLICK PAGE NUMBERS
+  Step 1: Click on page number "2"
+  Expected Result: ✅ Goes to page 2
+
+  Step 2: Click on page number "1"
+  Expected Result: ✅ Returns to page 1
+
+  Step 3: Try clicking different page numbers
+  Expected Result: ✅ Each number takes you to that page
+
+TEST 4.9 - PAGINATION: ONLY 5 LEADS PER PAGE
+  Step 1: Count total leads you added
+  Step 2: Count leads on page 1: Should be 5
+  Step 3: Count leads on page 2: Should be remaining (less than 5)
+  Expected Result: ✅ No page shows more than 5 leads
+
+================================================================================
+                              TEST 5: SEARCH FEATURE
+================================================================================
+
+URL: http://localhost/web_project/pages/view_customers.php
+
+TEST 5.1 - SEARCH BOX VISIBLE
+  Step 1: Go to View Leads page
+  Expected Results:
+    ✅ Search box appears at top (above table)
+    ✅ Has placeholder text: "Search by name or email..."
+    ✅ Has "Search" button next to it
+    ✅ Has "Clear Search" button (may only show after searching)
+
+TEST 5.2 - SEARCH BY NAME
+  Step 1: In search box, type: "John"
+  Step 2: Click "Search" button
+  Expected Results:
+    ✅ Table filters to show only leads with "John" in name
+    ✅ Shows message: "Searching for: 'John' - Found: X result(s)"
+    ✅ "Clear Search" button appears
+    ✅ Only matching leads visible (e.g., "John Doe")
+
+TEST 5.3 - SEARCH BY EMAIL
+  Step 1: Click "Clear Search"
+  Step 2: In search box, type: "alice"
+  Step 3: Click "Search" button
+  Expected Results:
+    ✅ Table filters to show only leads with "alice" in email
+    ✅ Shows message: "Searching for: 'alice' - Found: X result(s)"
+    ✅ Only "Alice Smith" (or similar) visible
+
+TEST 5.4 - SEARCH BY PARTIAL NAME
+  Step 1: Click "Clear Search"
+  Step 2: In search box, type: "Bob"
+  Step 3: Click "Search" button
+  Expected Results:
+    ✅ Shows "Bob Wilson"
+    ✅ Does not show unmatched leads
+
+TEST 5.5 - SEARCH WITH NO RESULTS
+  Step 1: Click "Clear Search"
+  Step 2: In search box, type: "xyz123notfound"
+  Step 3: Click "Search" button
+  Expected Results:
+    ✅ Shows message: "No customers found for 'xyz123notfound'"
+    ✅ Shows "View all customers" link
+    ✅ No table rows visible
+
+TEST 5.6 - SEARCH: VIEW ALL CUSTOMERS LINK
+  Step 1: After searching with no results
+  Step 2: Click "View all customers" link
+  Expected Results:
+    ✅ All leads reappear
+    ✅ Pagination shows again
+    ✅ Search box is empty
+
+TEST 5.7 - CLEAR SEARCH BUTTON
+  Step 1: Do any search (e.g., search for "John")
+  Step 2: Click "Clear Search" button
+  Expected Results:
+    ✅ Search box becomes empty
+    ✅ All leads reappear in table
+    ✅ "Clear Search" button disappears
+    ✅ Total count message shows again
+
+TEST 5.8 - SEARCH IS CASE INSENSITIVE
+  Step 1: Clear previous search
+  Step 2: Search for: "john" (lowercase)
+  Expected Result: ✅ Still finds "John" (uppercase)
+
+  Step 3: Search for: "ALICE" (uppercase)
+  Expected Result: ✅ Still finds "alice@example.com"
+
+================================================================================
+                              TEST 6: EDIT LEAD
+================================================================================
+
+URL: Click Edit button on any lead in View Leads page
+
+TEST 6.1 - EDIT FORM LOADS
+  Step 1: Go to View Leads page
+  Step 2: Click "Edit" button for any lead (e.g., John Doe)
+  Expected Results:
+    ✅ Page loads with Edit form
+    ✅ URL shows: edit_customer.php?id=X (where X is lead ID)
+    ✅ Shows heading "Edit Lead"
+    ✅ Form has fields: Name, Email, Phone, Date Added
+
+TEST 6.2 - FORM PRE-FILLED WITH DATA
+  Step 1: On Edit form
+  Expected Results:
+    ✅ Name field shows current name (e.g., "John Doe")
+    ✅ Email field shows current email (e.g., "john@example.com")
+    ✅ Phone field shows current phone (e.g., "555-1111")
+    ✅ Date Added field shows creation date
+
+TEST 6.3 - DATE ADDED IS READ-ONLY
+  Step 1: On Edit form
+  Step 2: Try clicking "Date Added" field
+  Expected Results:
+    ✅ Field is grayed out (disabled)
+    ✅ Cannot type or edit it
+    ✅ Shows original creation date
+
+TEST 6.4 - UPDATE LEAD NAME
+  Step 1: On Edit form
+  Step 2: Name field: Clear it and type "John Smith" (changed from "John Doe")
+  Step 3: Click "Update Lead" button
+  Expected Results:
+    ✅ Success message shows (green box): "Customer updated successfully!"
+    ✅ Auto-redirects to View Leads page after 2 seconds
+    ✅ In table, lead now shows as "John Smith"
+
+TEST 6.5 - UPDATE MULTIPLE FIELDS
+  Step 1: Go to View Leads
+  Step 2: Click Edit on "Alice Smith"
+  Step 3: Change:
+         - Name: "Alice Johnson" (was "Alice Smith")
+         - Email: "alice.johnson@example.com" (was "alice@example.com")
+         - Phone: "555-9999" (was "555-2222")
+  Step 4: Click "Update Lead"
+  Expected Results:
+    ✅ Success message shows
+    ✅ Auto-redirects
+    ✅ Table shows all updated values
+
+TEST 6.6 - VALIDATION: EMPTY NAME
+  Step 1: Click Edit on any lead
+  Step 2: Clear the Name field (make it empty)
+  Step 3: Click "Update Lead"
+  Expected Results:
+    ✅ Error message shows (red box): "Name is required!"
+    ✅ Form stays on edit page (no redirect)
+    ✅ Changes are NOT saved
+
+TEST 6.7 - VALIDATION: EMPTY EMAIL
+  Step 1: Click Edit on any lead
+  Step 2: Clear the Email field (make it empty)
+  Step 3: Click "Update Lead"
+  Expected Results:
+    ✅ Error message shows: "Email is required!"
+    ✅ Form stays on edit page
+
+TEST 6.8 - VALIDATION: INVALID EMAIL
+  Step 1: Click Edit on any lead
+  Step 2: Email field: change to "invalidemail" (no @ symbol)
+  Step 3: Click "Update Lead"
+  Expected Results:
+    ✅ Error message shows: "Please enter a valid email address!"
+    ✅ Form stays on edit page
+
+TEST 6.9 - VALIDATION: INVALID PHONE
+  Step 1: Click Edit on any lead
+  Step 2: Phone field: type "abc123xyz"
+  Step 3: Click "Update Lead"
+  Expected Result:
+    ✅ Error message shows about invalid phone
+
+TEST 6.10 - BACK TO LEADS LIST
+  Step 1: Click Edit on any lead
+  Step 2: Scroll down to bottom of form
+  Step 3: Click "Back to Leads List" link
+  Expected Results:
+    ✅ Returns to View Leads page
+    ✅ NO changes are saved
+    ✅ Lead information stays original
+
+================================================================================
+                              TEST 7: DELETE LEAD
+================================================================================
+
+URL: Click Delete button on any lead in View Leads page
+
+TEST 7.1 - DELETE CONFIRMATION POPUP
+  Step 1: Go to View Leads page
+  Step 2: Click "Delete" button for any lead (e.g., "Charlie Brown")
+  Expected Results:
+    ✅ JavaScript confirmation popup appears
+    ✅ Popup message: "Are you sure you want to delete [Lead Name]?"
+    ✅ Two buttons: "OK" and "Cancel"
+
+TEST 7.2 - CANCEL DELETE
+  Step 1: Click Delete on any lead
+  Step 2: In popup, click "Cancel"
+  Expected Results:
+    ✅ Popup closes
+    ✅ Lead is NOT deleted
+    ✅ Still appears in table
+    ✅ Page stays on View Leads
+
+TEST 7.3 - CONFIRM DELETE
+  Step 1: Click Delete on "Charlie Brown"
+  Step 2: In popup, click "OK"
+  Expected Results:
+    ✅ Alert shows: "Customer deleted successfully!"
+    ✅ Alert closes
+    ✅ Page refreshes
+    ✅ "Charlie Brown" is GONE from table
+    ✅ Table now has one fewer lead
+
+TEST 7.4 - DELETE ANOTHER LEAD
+  Step 1: Click Delete on "Diana Prince"
+  Step 2: Click "OK" in confirmation
+  Expected Results:
+    ✅ "Diana Prince" deleted successfully
+    ✅ Table updated
+    ✅ One more lead removed
+
+TEST 7.5 - PAGINATION AFTER DELETE
+  Step 1: If you had 10 leads and deleted 2, you now have 8
+  Expected Result:
+    ✅ Pagination still shows correctly
+    ✅ Page 1 shows 5 leads
+    ✅ Page 2 shows 3 remaining leads
+    ✅ Pages update automatically
+
+================================================================================
+                         TEST 8: SESSION & SECURITY
+================================================================================
+
+TEST 8.1 - SESSION PERSISTS ACROSS PAGES
+  Step 1: Login as admin
+  Step 2: Go to homepage
+  Step 3: Click "Add Lead" from menu → Should load (logged in)
+  Step 4: Click "View Leads" → Should load (logged in)
+  Step 5: Click "Home" → Should load (logged in)
+  Expected Result: ✅ Stay logged in throughout
+
+TEST 8.2 - LOGOUT WORKS
+  Step 1: While logged in, click "Logout" button (top right)
+  Expected Results:
+    ✅ Session ends
+    ✅ Possibly redirected to login page or home
+    ✅ You are no longer logged in
+
+TEST 8.3 - CANNOT ACCESS PAGES WITHOUT LOGIN
+  Step 1: After logging out, try accessing directly:
+         http://localhost/web_project/pages/view_customers.php
+  Expected Results:
+    ✅ Redirects to login page
+    ✅ Cannot view leads without logging in
+    ✅ Protected pages are secure
+
+TEST 8.4 - MUST LOGIN AGAIN AFTER LOGOUT
+  Step 1: After logout, try accessing homepage:
+         http://localhost/web_project/
+  Expected Results:
+    ✅ May show login page or require login
+    ✅ Cannot access features without credentials
+    ✅ Must login with admin/12345 again
+
+TEST 8.5 - SESSION TIMEOUT (OPTIONAL)
+  Step 1: Login successfully
+  Step 2: Leave browser idle for long time
+  Step 3: Try accessing a page
+  Note: Session behavior may vary based on PHP timeout settings
+
+================================================================================
+                              TEST 9: UI & UX
+================================================================================
+
+TEST 9.1 - STYLING LOADS CORRECTLY
+  Step 1: Visit any page after login
+  Expected Results:
+    ✅ Page has styling (not plain white with black text)
+    ✅ Colors are consistent
+    ✅ Buttons have colors (blue/red)
+    ✅ Forms look organized
+
+TEST 9.2 - RESPONSIVE LAYOUT
+  Step 1: Visit pages on normal browser size
+  Expected Result: ✅ Everything displays clearly
+
+  Optional: Try resizing browser smaller
+  Expected Result: ✅ Still readable (responsive design)
+
+TEST 9.3 - BUTTONS ARE CLICKABLE
+  Step 1: Check all buttons on all pages
+  Expected Results:
+    ✅ Login button works
+    ✅ Add Lead button works
+    ✅ Search button works
+    ✅ Update/Edit buttons work
+    ✅ Delete buttons work
+    ✅ Navigation links work
+    ✅ All buttons appear clickable
+
+TEST 9.4 - ERROR MESSAGES ARE CLEAR
+  Step 1: Trigger various errors (empty fields, invalid email, etc.)
+  Expected Results:
+    ✅ Error messages appear in red boxes
+    ✅ Messages are readable and helpful
+    ✅ Messages tell you what's wrong
+
+TEST 9.5 - SUCCESS MESSAGES ARE CLEAR
+  Step 1: Successfully add/edit/delete leads
+  Expected Results:
+    ✅ Success messages appear in green boxes
+    ✅ Messages confirm the action completed
+    ✅ Messages are easy to read
+
+TEST 9.6 - TABLE IS READABLE
+  Step 1: Go to View Leads page
+  Expected Results:
+    ✅ Table columns are clearly labeled
+    ✅ Row data is easy to read
+    ✅ All information visible and organized
+
+TEST 9.7 - FORMS ARE EASY TO USE
+  Step 1: Go to Add Lead or Edit Lead page
+  Expected Results:
+    ✅ Labels are clear (Name, Email, Phone)
+    ✅ Input fields are big enough to type in
+    ✅ Submit button is prominent
+    ✅ Form is organized with spacing
+
+================================================================================
+                            QUICK TESTING CHECKLIST
+================================================================================
+
+Print this out and check as you complete each test:
+
+LOGIN SYSTEM
+  ☐ Login page displays form
+  ☐ Empty login shows error
+  ☐ Wrong credentials show error
+  ☐ Correct login (admin/12345) works
+  ☐ Successful login redirects to homepage
+  ☐ "Welcome, admin" message shows
+  ☐ Logout button visible
+
+HOMEPAGE
+  ☐ Homepage loads after login
+  ☐ Shows "Welcome to Lead Tracking AI" heading
+  ☐ Navigation menu displays correctly
+  ☐ "Add New Lead" button visible
+  ☐ "View All Leads" button visible
+  ☐ All navigation links work
+
+ADD LEAD FEATURE
+  ☐ Add Lead page displays form
+  ☐ Empty fields validation works
+  ☐ Name length validation works (min 2 chars)
+  ☐ Email format validation works
+  ☐ Phone validation works (numbers only)
+  ☐ Successfully add valid lead
+  ☐ Success message displays
+  ☐ Auto-redirects to View Leads
+  ☐ Add 8-10 leads for pagination testing
+
+VIEW LEADS & PAGINATION
+  ☐ All leads display in table
+  ☐ Table has correct columns
+  ☐ Shows ID, Name, Email, Phone, Date Added, Actions
+  ☐ Leads shown in correct order (newest first)
+  ☐ Edit and Delete buttons visible for each lead
+  ☐ Pagination controls visible (if 6+ leads)
+  ☐ Shows "Page X of X" indicator
+  ☐ Only 5 leads per page
+  ☐ Next button works
+  ☐ Previous button works
+  ☐ Page numbers clickable
+  ☐ Total count message shows
+
+SEARCH FUNCTION
+  ☐ Search box visible on View Leads page
+  ☐ Can type in search box
+  ☐ Search by name works
+  ☐ Search by email works
+  ☐ Shows search result count
+  ☐ No results message displays
+  ☐ Clear Search button works
+  ☐ All leads reappear after clear
+  ☐ Search is case insensitive
+
+EDIT LEAD
+  ☐ Edit button opens form
+  ☐ Form pre-filled with current data
+  ☐ Date Added field is disabled/read-only
+  ☐ Can modify Name field
+  ☐ Can modify Email field
+  ☐ Can modify Phone field
+  ☐ Update button saves changes
+  ☐ Success message shows
+  ☐ Auto-redirects to View Leads
+  ☐ Changes appear in table
+  ☐ Form validation works on edit
+  ☐ Empty fields show error
+  ☐ Invalid email shows error
+  ☐ Back button returns without saving
+
+DELETE LEAD
+  ☐ Delete button visible
+  ☐ Delete shows confirmation popup
+  ☐ Popup asks for confirmation
+  ☐ Cancel button doesn't delete
+  ☐ OK button confirms delete
+  ☐ Lead removed from table
+  ☐ Success message displays
+  ☐ Can delete multiple leads
+
+SESSION & SECURITY
+  ☐ Session persists across pages
+  ☐ Can navigate between all pages while logged in
+  ☐ Logout button works
+  ☐ Session ends after logout
+  ☐ Cannot access pages without login
+  ☐ Direct URL access redirects to login
+  ☐ Must login again after logout
+
+UI & UX
+  ☐ Page styling loads correctly
+  ☐ Buttons have colors (blue/red)
+  ☐ Forms look organized
+  ☐ Error messages in red boxes
+  ☐ Success messages in green boxes
+  ☐ All text is readable
+  ☐ Tables are organized
+  ☐ No broken links
+  ☐ All buttons clickable
+  ☐ Layout looks professional
+
+================================================================================
+                            FINAL VERIFICATION
+================================================================================
+
+If ALL checkboxes above are checked ✅, then:
+
+✅ SYSTEM IS FULLY FUNCTIONAL
+✅ ALL FEATURES WORKING CORRECTLY
+✅ READY FOR GITHUB/PRODUCTION USE
+✅ PROJECT 100% COMPLETE
+
+================================================================================
+                            TROUBLESHOOTING
+================================================================================
+
+If any test fails, refer to these common issues:
+
+PROBLEM: "Unknown database 'crm_project'"
+ACTION: Go to phpMyAdmin and run database creation SQL
+RESULT: Database should be created
+
+PROBLEM: Login page blank or forms don't appear
+ACTION: Check that Apache is running in XAMPP
+RESULT: Start Apache service
+
+PROBLEM: Cannot login even with admin/12345
+ACTION: Go to phpMyAdmin, check "admins" table
+ACTION: If not there, insert: INSERT INTO admins (username, password) VALUES ('admin', '12345');
+RESULT: Login should work
+
+PROBLEM: Pagination not showing
+ACTION: Add more leads (need 6+ for pagination)
+RESULT: Pagination controls appear
+
+PROBLEM: Search not working
+ACTION: Make sure you're on View Leads page
+ACTION: Try simple search terms (first names)
+RESULT: Search should filter results
+
+PROBLEM: CSS/JavaScript not loading (page looks plain)
+ACTION: Clear browser cache (Ctrl+Shift+Delete)
+ACTION: Hard refresh page (Ctrl+F5)
+RESULT: Styling should appear
+
+PROBLEM: Edit/Delete buttons don't work
+ACTION: Make sure you're logged in first
+ACTION: Check browser console for errors (F12)
+RESULT: Buttons should work
+
+PROBLEM: Error messages don't disappear
+ACTION: Try reloading page (F5)
+ACTION: Check MySQL is running
+RESULT: Error should clear
+
+================================================================================
+                              END OF TESTING GUIDE
+================================================================================
+
+Total Tests: 50+
+Estimated Time: 30-60 minutes
+
+All tests completed successfully? 🎉
+
+Then your Lead Tracking AI project is READY TO USE!
+
+Thank you for testing thoroughly!
+
+================================================================================
