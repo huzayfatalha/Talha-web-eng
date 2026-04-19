@@ -7,6 +7,7 @@ include('../includes/header.php');
 
 // Initialize variables
 $message = "";
+$messageType = ""; // "success" or "error"
 $customer = null;
 
 // Check if customer ID is provided in URL
@@ -22,23 +23,50 @@ if (isset($_GET['id'])) {
         $customer = mysqli_fetch_assoc($result);
     } else {
         $message = "Customer not found!";
+        $messageType = "error";
     }
 } else {
     $message = "No customer ID provided!";
+    $messageType = "error";
 }
 
 // Handle form submission (UPDATE)
 if (isset($_POST['submit']) && $customer) {
-    // Get form data
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    // Get form data and trim whitespace
+    $name = trim(mysqli_real_escape_string($conn, $_POST['name']));
+    $email = trim(mysqli_real_escape_string($conn, $_POST['email']));
+    $phone = trim(mysqli_real_escape_string($conn, $_POST['phone']));
 
-    // Simple validation
-    if (empty($name) || empty($email)) {
-        $message = "Name and Email are required!";
+    // Server-side validation
+    $errors = array();
+
+    // Validate Name
+    if (empty($name)) {
+        $errors[] = "Name is required!";
+    } elseif (strlen($name) < 2) {
+        $errors[] = "Name must be at least 2 characters long!";
+    }
+
+    // Validate Email
+    if (empty($email)) {
+        $errors[] = "Email is required!";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Please enter a valid email address!";
+    }
+
+    // Validate Phone (optional but if provided must be valid)
+    if (!empty($phone)) {
+        if (!preg_match("/^[0-9\-\+\(\)\s]+$/", $phone)) {
+            $errors[] = "Phone number should contain only numbers and common symbols!";
+        }
+    }
+
+    // If there are errors, show them
+    if (count($errors) > 0) {
+        $message = implode("<br>", $errors);
+        $messageType = "error";
     } else {
-        // Update database
+        // All validations passed, update database
         $update_query = "UPDATE customers SET
                         name = '$name',
                         email = '$email',
@@ -47,6 +75,7 @@ if (isset($_POST['submit']) && $customer) {
 
         if (mysqli_query($conn, $update_query)) {
             $message = "Customer updated successfully!";
+            $messageType = "success";
             // Update the customer variable so form shows new data
             $customer['name'] = $name;
             $customer['email'] = $email;
@@ -59,6 +88,7 @@ if (isset($_POST['submit']) && $customer) {
             </script>";
         } else {
             $message = "Error updating customer: " . mysqli_error($conn);
+            $messageType = "error";
         }
     }
 }
@@ -67,24 +97,31 @@ if (isset($_POST['submit']) && $customer) {
 <div class="container">
     <h2>Edit Customer</h2>
 
+    <!-- Error/Success messages -->
+    <div id="error-message"></div>
+
     <!-- Show message if there is one -->
     <?php if (!empty($message)): ?>
-        <p style="background-color: #ecf0f1; padding: 10px; border-radius: 4px; color: #2c3e50;">
+        <div style="background-color: <?php echo ($messageType == 'success') ? '#d4edda' : '#f8d7da'; ?>;
+                    color: <?php echo ($messageType == 'success') ? '#155724' : '#721c24'; ?>;
+                    padding: 12px; border-radius: 4px; margin-bottom: 15px;
+                    border: 1px solid <?php echo ($messageType == 'success') ? '#c3e6cb' : '#f5c6cb'; ?>;">
+            <strong><?php echo ($messageType == 'success') ? 'Success!' : 'Error!'; ?></strong><br>
             <?php echo $message; ?>
-        </p>
+        </div>
     <?php endif; ?>
 
     <!-- Edit form (only show if customer exists) -->
     <?php if ($customer): ?>
-        <form method="POST" action="">
+        <form method="POST" action="" onsubmit="return validateCustomerForm()">
             <label for="name">Customer Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo $customer['name']; ?>" required>
+            <input type="text" id="name" name="name" value="<?php echo $customer['name']; ?>" placeholder="Enter customer name (min 2 characters)">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" required>
+            <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" placeholder="Enter customer email">
 
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone" value="<?php echo $customer['phone']; ?>">
+            <input type="text" id="phone" name="phone" value="<?php echo $customer['phone']; ?>" placeholder="Enter customer phone (optional)">
 
             <!-- Display created date (read-only) -->
             <label for="created_at">Date Added:</label>
@@ -96,6 +133,11 @@ if (isset($_POST['submit']) && $customer) {
 
         <!-- Link to go back -->
         <a href="view_customers.php" style="display: block; margin-top: 20px; text-align: center;">Back to Customer List</a>
+
+        <!-- Info message -->
+        <p style="margin-top: 20px; font-size: 12px; color: #7f8c8d;">
+            <strong>Note:</strong> Name and Email are required. Phone is optional.
+        </p>
     <?php endif; ?>
 </div>
 
