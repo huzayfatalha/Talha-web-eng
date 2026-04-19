@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
         $messageType = "error";
     } else {
         // Check user in database
-        $query = "SELECT * FROM users WHERE username = '$username'";
+        $query = "SELECT * FROM admins WHERE username = '$username'";
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result) > 0) {
@@ -185,6 +185,11 @@ if (isset($_POST['login'])) {
 
             <input type="submit" name="login" value="Login">
         </form>
+
+        <!-- Sign up link -->
+        <p style="text-align: center; margin-top: 20px; font-size: 14px;">
+            Don't have an account? <a href="signup.php" style="color: #667eea; text-decoration: none; font-weight: bold;">Create one here</a>
+        </p>
 
         <!-- Demo Credentials -->
         <div class="demo-credentials">
