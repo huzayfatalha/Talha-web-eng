@@ -1,4 +1,7 @@
 <?php
+// Check if user is logged in
+include('../includes/session_check.php');
+
 // Include database connection
 include('../db.php');
 

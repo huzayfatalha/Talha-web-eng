@@ -1,4 +1,7 @@
 <?php
+// Check if user is logged in
+include('../includes/session_check.php');
+
 // Include database connection
 include('../db.php');
 
@@ -7,18 +10,38 @@ include('../includes/header.php');
 
 // Initialize search variable
 $search = "";
-$search_query = "";
+$page = 1;
+$items_per_page = 5;
 
 // Check if search form was submitted
 if (isset($_POST['search'])) {
     $search = mysqli_real_escape_string($conn, $_POST['search']);
+}
 
-    // Search by name or email
+// Get current page from URL
+if (isset($_GET['page'])) {
+    $page = (int)$_GET['page'];
+    if ($page < 1) $page = 1;
+}
+
+// Build the base query
+if (!empty($search)) {
+    $count_query = "SELECT COUNT(*) as total FROM customers WHERE name LIKE '%$search%' OR email LIKE '%$search%'";
     $query = "SELECT * FROM customers WHERE name LIKE '%$search%' OR email LIKE '%$search%' ORDER BY id DESC";
 } else {
-    // Get all customers if no search
+    $count_query = "SELECT COUNT(*) as total FROM customers";
     $query = "SELECT * FROM customers ORDER BY id DESC";
 }
+
+// Get total count
+$count_result = mysqli_query($conn, $count_query);
+$count_row = mysqli_fetch_assoc($count_result);
+$total_customers = $count_row['total'];
+$total_pages = ceil($total_customers / $items_per_page);
+
+// Calculate LIMIT and OFFSET
+$offset = ($page - 1) * $items_per_page;
+$query .= " LIMIT $items_per_page OFFSET $offset";
 
 // Execute query
 $result = mysqli_query($conn, $query);
@@ -59,12 +82,27 @@ if (isset($_GET['delete'])) {
         </form>
     </div>
 
-    <!-- Search result info -->
-    <?php if (!empty($search)): ?>
-        <p style="color: #7f8c8d; margin-bottom: 15px;">
-            Searching for: <strong><?php echo $search; ?></strong>
-        </p>
-    <?php endif; ?>
+    <!-- Search result info and pagination info -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+        <div>
+            <?php if (!empty($search)): ?>
+                <p style="color: #7f8c8d;">
+                    Searching for: <strong><?php echo $search; ?></strong> - Found: <strong><?php echo $total_customers; ?></strong> result(s)
+                </p>
+            <?php else: ?>
+                <p style="color: #7f8c8d;">
+                    Total Customers: <strong><?php echo $total_customers; ?></strong>
+                </p>
+            <?php endif; ?>
+        </div>
+
+        <!-- Pagination Info -->
+        <?php if ($total_pages > 1): ?>
+            <div style="color: #7f8c8d;">
+                Page <strong><?php echo $page; ?></strong> of <strong><?php echo $total_pages; ?></strong>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <?php
     // Check if there are any customers
@@ -99,6 +137,53 @@ if (isset($_GET['delete'])) {
 
         echo "</tbody>";
         echo "</table>";
+
+        // Pagination controls
+        if ($total_pages > 1) {
+            echo "<div style='display: flex; justify-content: center; gap: 10px; margin-top: 20px; align-items: center;'>";
+
+            // Previous button
+            if ($page > 1) {
+                $prev_page = $page - 1;
+                if (!empty($search)) {
+                    echo "<a href='view_customers.php?page=$prev_page' class='btn' style='padding: 10px 15px; text-decoration: none; cursor: pointer;'>← Previous</a>";
+                } else {
+                    echo "<a href='view_customers.php?page=$prev_page' class='btn' style='padding: 10px 15px; text-decoration: none; cursor: pointer;'>← Previous</a>";
+                }
+            } else {
+                echo "<span style='padding: 10px 15px; background-color: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;'>← Previous</span>";
+            }
+
+            // Page numbers
+            echo "<span style='padding: 10px 15px;'>";
+            for ($i = 1; $i <= $total_pages; $i++) {
+                if ($i == $page) {
+                    echo "<strong style='color: #3498db; font-size: 18px;'>[$i]</strong> ";
+                } else {
+                    if (!empty($search)) {
+                        echo "<a href='view_customers.php?page=$i' style='text-decoration: none; color: #3498db;'>$i</a> ";
+                    } else {
+                        echo "<a href='view_customers.php?page=$i' style='text-decoration: none; color: #3498db;'>$i</a> ";
+                    }
+                }
+            }
+            echo "</span>";
+
+            // Next button
+            if ($page < $total_pages) {
+                $next_page = $page + 1;
+                if (!empty($search)) {
+                    echo "<a href='view_customers.php?page=$next_page' class='btn' style='padding: 10px 15px; text-decoration: none; cursor: pointer;'>Next →</a>";
+                } else {
+                    echo "<a href='view_customers.php?page=$next_page' class='btn' style='padding: 10px 15px; text-decoration: none; cursor: pointer;'>Next →</a>";
+                }
+            } else {
+                echo "<span style='padding: 10px 15px; background-color: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;'>Next →</span>";
+            }
+
+            echo "</div>";
+        }
+
     } else {
         // Show message if no customers found
         if (!empty($search)) {
@@ -117,4 +202,5 @@ if (isset($_GET['delete'])) {
 // Include footer
 include('../includes/footer.php');
 ?>
+
 

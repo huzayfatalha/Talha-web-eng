@@ -1,4 +1,6 @@
-/* Basic styling for CRM System */
+/* =====================================================
+   CRM SYSTEM - Modern UI Styling
+   ===================================================== */
 
 * {
     margin: 0;
@@ -7,193 +9,478 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
     color: #333;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
-/* Header styling */
+/* ===================== HEADER STYLING ===================== */
 header {
-    background-color: #2c3e50;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
-    padding: 20px;
-    text-align: center;
+    padding: 25px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    margin-bottom: 5px;
     font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
 }
 
 header p {
     font-size: 14px;
     opacity: 0.9;
+    font-weight: 300;
 }
 
-/* Navigation bar */
+/* User info in header */
+header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+header a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ===================== NAVIGATION BAR ===================== */
 nav {
     background-color: #34495e;
-    padding: 10px 0;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+nav li {
+    flex: 1;
+    text-align: center;
+    max-width: 200px;
 }
 
 nav a {
+    display: block;
     color: white;
     text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
 }
 
 nav a:hover {
     background-color: #2c3e50;
+    border-bottom-color: #3498db;
+    color: #3498db;
 }
 
-/* Main container */
+/* ===================== MAIN CONTAINER ===================== */
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 30px;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* ===================== HEADINGS ===================== */
 h2 {
     color: #2c3e50;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 12px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-/* Form styling */
+h3 {
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* ===================== FORM STYLING ===================== */
 form {
     display: flex;
     flex-direction: column;
 }
 
 label {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #34495e;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    display: block;
 }
 
 input[type="text"],
 input[type="email"],
+input[type="password"],
 input[type="phone"],
-textarea {
-    margin-top: 5px;
-    padding: 10px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
+textarea,
+select {
+    margin-top: 0;
+    padding: 12px 15px;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="phone"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 /* Disabled input styling */
-input:disabled {
+input:disabled,
+input[disabled] {
     background-color: #ecf0f1;
     color: #7f8c8d;
     cursor: not-allowed;
+    border-color: #bdc3c7;
 }
 
 textarea {
     resize: vertical;
     min-height: 100px;
+    font-size: 13px;
 }
 
-input[type="submit"] {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3498db;
+/* ===================== BUTTON STYLING ===================== */
+input[type="submit"],
+button {
+    margin-top: 25px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-input[type="submit"]:hover {
-    background-color: #2980b9;
+input[type="submit"]:hover,
+button:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1d5a8e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
 }
 
-/* Table styling */
+input[type="submit"]:active,
+button:active {
+    transform: translateY(0);
+}
+
+/* ===================== TABLE STYLING ===================== */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    font-size: 14px;
+}
+
+table thead {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
 }
 
 table th {
-    background-color: #34495e;
     color: white;
-    padding: 12px;
+    padding: 15px;
     text-align: left;
-    font-weight: bold;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 table td {
-    padding: 10px;
-    border-bottom: 1px solid #bdc3c7;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ecf0f1;
 }
 
-table tr:hover {
-    background-color: #ecf0f1;
+table tbody tr {
+    transition: all 0.2s ease;
 }
 
-/* Footer styling */
+table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: inset 0 0 0 1px #ecf0f1;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* ===================== BUTTON VARIANTS ===================== */
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin: 5px;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1d5a8e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    text-decoration: none;
+    color: white !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    box-shadow: 0 4px 15px rgba(149, 165, 166, 0.2);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #7f8c8d 0%, #616770 100%);
+    box-shadow: 0 6px 20px rgba(149, 165, 166, 0.3);
+}
+
+/* ===================== FOOTER STYLING ===================== */
 footer {
-    background-color: #2c3e50;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
     text-align: center;
     padding: 20px;
     margin-top: 50px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 13px;
+    opacity: 0.9;
 }
 
-/* Welcome message */
+/* ===================== WELCOME MESSAGE ===================== */
 .welcome {
-    font-size: 18px;
+    font-size: 16px;
     color: #2c3e50;
     line-height: 1.8;
 }
 
 .welcome p {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
-/* Button styling */
-.btn {
-    display: inline-block;
-    padding: 8px 12px;
-    background-color: #3498db;
-    color: white;
-    text-decoration: none;
+.welcome ul {
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.welcome li {
+    margin: 8px 0;
+    color: #34495e;
+}
+
+/* ===================== MESSAGE BOXES ===================== */
+.success-message {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #28a745;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.1);
+}
+
+.error-message {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #dc3545;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.1);
+}
+
+.info-message {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #17a2b8;
+    box-shadow: 0 2px 4px rgba(23, 162, 184, 0.1);
+}
+
+/* ===================== SEARCH BOX STYLING ===================== */
+.search-box {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 2px solid #ecf0f1;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* ===================== PAGINATION STYLING ===================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.pagination a,
+.pagination span {
+    padding: 10px 12px;
     border-radius: 4px;
-    transition: background-color 0.3s;
-    margin: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
-.btn:hover {
-    background-color: #2980b9;
+.pagination a {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    cursor: pointer;
 }
 
-.btn-danger {
-    background-color: #e74c3c;
+.pagination a:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1d5a8e 100%);
+    transform: translateY(-2px);
 }
 
-.btn-danger:hover {
-    background-color: #c0392b;
+.pagination span {
+    color: #7f8c8d;
+    background-color: #ecf0f1;
+}
+
+/* ===================== RESPONSIVE DESIGN ===================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 15px;
+    }
+
+    header > div {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav li {
+        max-width: 100%;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    table th,
+    table td {
+        padding: 8px 10px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+}
+
+/* ===================== UTILITY CLASSES ===================== */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.p-15 {
+    padding: 15px;
+}
+
+.rounded {
+    border-radius: 6px;
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
