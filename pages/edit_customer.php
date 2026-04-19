@@ -98,7 +98,7 @@ if (isset($_POST['submit']) && $customer) {
 ?>
 
 <div class="container">
-    <h2>Edit Customer</h2>
+    <h2>Edit Lead</h2>
 
     <!-- Error/Success messages -->
     <div id="error-message"></div>
@@ -117,25 +117,25 @@ if (isset($_POST['submit']) && $customer) {
     <!-- Edit form (only show if customer exists) -->
     <?php if ($customer): ?>
         <form method="POST" action="" onsubmit="return validateCustomerForm()">
-            <label for="name">Customer Name:</label>
-            <input type="text" id="name" name="name" value="<?php echo $customer['name']; ?>" placeholder="Enter customer name (min 2 characters)">
+            <label for="name">Lead Name:</label>
+            <input type="text" id="name" name="name" value="<?php echo $customer['name']; ?>" placeholder="Enter lead name (min 2 characters)">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" placeholder="Enter customer email">
+            <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" placeholder="Enter lead email">
 
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone" value="<?php echo $customer['phone']; ?>" placeholder="Enter customer phone (optional)">
+            <input type="text" id="phone" name="phone" value="<?php echo $customer['phone']; ?>" placeholder="Enter lead phone (optional)">
 
             <!-- Display created date (read-only) -->
             <label for="created_at">Date Added:</label>
             <input type="text" id="created_at" name="created_at" value="<?php echo $customer['created_at']; ?>" disabled>
 
             <!-- Submit button -->
-            <input type="submit" name="submit" value="Update Customer">
+            <input type="submit" name="submit" value="Update Lead">
         </form>
 
         <!-- Link to go back -->
-        <a href="view_customers.php" style="display: block; margin-top: 20px; text-align: center;">Back to Customer List</a>
+        <a href="view_customers.php" style="display: block; margin-top: 20px; text-align: center;">Back to Leads List</a>
 
         <!-- Info message -->
         <p style="margin-top: 20px; font-size: 12px; color: #7f8c8d;">

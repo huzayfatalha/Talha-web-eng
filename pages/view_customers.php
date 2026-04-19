@@ -60,7 +60,7 @@ if (isset($_GET['delete'])) {
 ?>
 
 <div class="container">
-    <h2>View All Customers</h2>
+    <h2>View All Leads</h2>
 
     <!-- Search Form -->
     <div style="background-color: #ecf0f1; padding: 15px; border-radius: 4px; margin-bottom: 20px;">

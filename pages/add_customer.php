@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 <div class="container">
-    <h2>Add New Customer</h2>
+    <h2>Add New Lead</h2>
 
     <!-- Error/Success messages -->
     <div id="error-message"></div>
@@ -88,19 +88,19 @@ if (isset($_POST['submit'])) {
         </div>
     <?php endif; ?>
 
-    <!-- Customer form -->
+    <!-- Lead form -->
     <form method="POST" action="" onsubmit="return validateCustomerForm()">
-        <label for="name">Customer Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter customer name (min 2 characters)">
+        <label for="name">Lead Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter lead name (min 2 characters)">
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Enter customer email (e.g., john@example.com)">
+        <input type="email" id="email" name="email" placeholder="Enter lead email (e.g., john@example.com)">
 
         <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" placeholder="Enter customer phone (optional)">
+        <input type="text" id="phone" name="phone" placeholder="Enter lead phone (optional)">
 
         <!-- Submit button -->
-        <input type="submit" name="submit" value="Add Customer">
+        <input type="submit" name="submit" value="Add Lead">
     </form>
 
     <!-- Info message -->

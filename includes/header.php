@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM System</title>
+    <title>Lead Tracking AI</title>
     <!-- linking CSS file -->
     <link rel="stylesheet" href="/web_project/css/style.css">
 </head>
@@ -12,8 +12,8 @@
     <header>
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-                <h1>CRM System</h1>
-                <p>Customer Relationship Management</p>
+                <h1>Lead Tracking AI</h1>
+                <p>Intelligent Lead Management System</p>
             </div>
             <?php
             // Start session if not started
@@ -33,7 +33,7 @@
     <nav>
         <ul>
             <li><a href="/web_project/index.php">Home</a></li>
-            <li><a href="/web_project/pages/add_customer.php">Add Customer</a></li>
-            <li><a href="/web_project/pages/view_customers.php">View Customers</a></li>
+            <li><a href="/web_project/pages/add_customer.php">Add Lead</a></li>
+            <li><a href="/web_project/pages/view_customers.php">View Leads</a></li>
         </ul>
     </nav>

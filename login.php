@@ -63,7 +63,7 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CRM System</title>
+    <title>Login - Lead Tracking AI</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         body {
@@ -166,7 +166,7 @@ if (isset($_POST['login'])) {
 </head>
 <body>
     <div class="login-container">
-        <h2>🔐 CRM Login</h2>
+        <h2>🚀 Lead Tracking AI - Login</h2>
 
         <!-- Show messages -->
         <?php if (!empty($message)): ?>
