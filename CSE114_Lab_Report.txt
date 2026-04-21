@@ -1030,58 +1030,21 @@ Community Sustainability:
 
 4.2 PROJECT MANAGEMENT AND TEAM WORK
 
-4.2.1 Team Roles and Responsibilities
+4.2.1 Project Structure (Solo Developer)
 
-Project Manager:
-• Overall project planning and timeline management
-• Coordination between team members
-• Risk management and issue resolution
-• Stakeholder communication
+As the sole developer, all responsibilities were consolidated:
+• Project Planning: Defined requirements, designed architecture, and managed timeline independently
+• Backend Development: Designed MySQL database schema, implemented PHP authentication and CRUD operations
+• Frontend Development: Created HTML/CSS interface and JavaScript validation
+• QA/Testing: Conducted comprehensive testing (59 test cases with 100% pass rate)
+• Documentation: Wrote README, code comments, and lab report
 
-Backend Developer:
-• Database design and implementation
-• PHP development for authentication and CRUD operations
-• Server-side validation and business logic
-• Database optimization
+4.2.2 Development Practices
 
-Frontend Developer:
-• HTML and CSS implementation
-• User interface design
-• JavaScript form validation
-• User experience optimization
-
-QA/Tester:
-• Test planning and test case creation
-• Unit testing of features
-• Integration testing between components
-• User acceptance testing
-• Documentation of test results
-
-Documentation Specialist:
-• Technical documentation
-• User guide creation
-• README file maintenance
-• Code comments and documentation
-
-4.2.2 Communication and Collaboration
-
-Team Meetings:
-• Weekly planning meetings (1 hour)
-• Bi-weekly progress reviews (30 minutes)
-• Daily standups for active development (15 minutes)
-• Problem-solving sessions as needed
-
-Version Control:
-• Used Git for version control
-• Committed changes regularly with clear messages
-• GitHub for repository hosting
-• Branch strategy for different features
-
-Documentation:
-• Code comments for complex logic
-• Function documentation
-• README with clear instructions
-• Issue tracking for bugs and features
+• Version Control: Used Git with regular commits and GitHub for repository management
+• Self-Review: Tested each feature thoroughly before moving to next phase
+• Code Quality: Documented complex logic with comments and clear function names
+• Iterative Development: Fixed issues immediately when discovered during testing
 
 ---
 
@@ -1140,103 +1103,7 @@ The Lead Tracking AI solution successfully:
 
 Program Outcome Mapping for Lead Tracking AI:
 
-┌─────────┬──────────────────────────────────────────────────────┐
-│ Program │ How This Project Demonstrates the Outcome           │
-│ Outcome │                                                      │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO1     │ Fundamental Programming Concepts                    │
-│         │ ✓ Applied basic programming concepts in PHP         │
-│         │ ✓ Used control structures (if/else, loops)          │
-│         │ ✓ Implemented functions and procedures             │
-│         │ ✓ Learned and applied database concepts            │
-│         │ ✓ Demonstrated problem-solving techniques          │
-│         │ Justification: Project required fundamental         │
-│         │ understanding of programming to implement all       │
-│         │ features from database design to user interface    │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO2     │ Competitive Programming & Problem-Solving           │
-│         │ ✓ Analyzed requirements and chose appropriate       │
-│         │   architecture                                      │
-│         │ ✓ Selected suitable data structures (arrays,        │
-│         │   database tables)                                  │
-│         │ ✓ Applied algorithms for search and sorting         │
-│         │ ✓ Used appropriate language constructs             │
-│         │ ✓ Optimized queries for performance                │
-│         │ Justification: Required analysis of requirements    │
-│         │ and selection of best approach among multiple       │
-│         │ options                                             │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO3     │ Software Engineering Principles                      │
-│         │ ✓ Followed software development lifecycle           │
-│         │ ✓ Requirements analysis and design specification    │
-│         │ ✓ Implementation with proper coding standards       │
-│         │ ✓ Testing and validation                            │
-│         │ ✓ Documentation and user guides                     │
-│         │ Justification: Project followed formal software     │
-│         │ engineering processes from planning to deployment   │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO4     │ Design and Development                               │
-│         │ ✓ Designed three-tier architecture                  │
-│         │ ✓ Designed database schema                          │
-│         │ ✓ Designed user interface/experience                │
-│         │ ✓ Implemented design specifications                 │
-│         │ ✓ Validated design through testing                  │
-│         │ Justification: Project involved complete design     │
-│         │ and development cycle from concept to deployment    │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO5     │ Tools and Technologies                               │
-│         │ ✓ Used PHP for backend development                  │
-│         │ ✓ Used MySQL for database management                │
-│         │ ✓ Used HTML/CSS/JavaScript for frontend             │
-│         │ ✓ Used Git for version control                      │
-│         │ ✓ Used XAMPP for development environment            │
-│         │ Justification: Project required mastering multiple   │
-│         │ technologies and tools to create complete solution  │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO6     │ Professional and Ethical Responsibility             │
-│         │ ✓ Considered security and data protection           │
-│         │ ✓ Wrote clean, maintainable code                    │
-│         │ ✓ Documented code and created user guides           │
-│         │ ✓ Considered impact on users and businesses         │
-│         │ ✓ Followed ethical guidelines for system design     │
-│         │ Justification: Project required thinking about      │
-│         │ broader implications and responsibilities           │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO7     │ Lifelong Learning                                    │
-│         │ ✓ Learned new technologies independently            │
-│         │ ✓ Researched best practices and standards           │
-│         │ ✓ Adapted approaches based on challenges            │
-│         │ ✓ Continuously improved based on testing            │
-│         │ Justification: Project required continuous learning │
-│         │ and problem-solving throughout development          │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO8     │ Project Management                                   │
-│         │ ✓ Planned project timeline and milestones           │
-│         │ ✓ Managed resources efficiently                     │
-│         │ ✓ Tracked progress and risks                        │
-│         │ ✓ Delivered within schedule                         │
-│         │ Justification: Project required planning, tracking, │
-│         │ and delivering on timeline                          │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO9     │ Teamwork and Communication                           │
-│         │ ✓ Worked in teams with different roles              │
-│         │ ✓ Communicated status and progress                  │
-│         │ ✓ Coordinated work between team members             │
-│         │ ✓ Resolved conflicts collaboratively                │
-│         │ ✓ Documented findings clearly                       │
-│         │ Justification: Project required effective teamwork  │
-│         │ and communication to succeed                        │
-├─────────┼──────────────────────────────────────────────────────┤
-│ PO10    │ Technical Communication                              │
-│         │ ✓ Created technical documentation                   │
-│         │ ✓ Wrote user-friendly guides                        │
-│         │ ✓ Documented code with comments                     │
-│         │ ✓ Created system design diagrams                    │
-│         │ ✓ Presented project findings                        │
-│         │ Justification: Project required communicating       │
-│         │ complex technical concepts clearly to different     │
-│         │ audiences                                           │
-└─────────┴──────────────────────────────────────────────────────┘
+This project successfully demonstrates all ten program outcomes. PO1 (Fundamental Programming): Applied core concepts in PHP, database design, and JavaScript. PO2 (Problem-Solving): Analyzed requirements and selected optimal architecture from multiple approaches. PO3 (Software Engineering): Followed complete SDLC from requirements to deployment with proper documentation. PO4 (Design & Development): Designed three-tier architecture, database schema, and responsive UI, then implemented and validated through testing. PO5 (Tools & Technologies): Mastered PHP, MySQL, HTML/CSS, JavaScript, Git, and XAMPP. PO6 (Professional & Ethical Responsibility): Considered data security, user privacy, accessibility, and documented ethical implications. PO7 (Lifelong Learning): Independently researched best practices, adapted approaches based on challenges, and continuously improved the system. PO8 (Project Management): Planned timeline with 5 development phases, managed resources efficiently, and delivered on schedule. PO9 (Teamwork & Communication): While solo, maintained clear version control history and comprehensive documentation for future collaboration. PO10 (Technical Communication): Created technical documentation, README guides, system design diagrams, and this detailed lab report for different audiences.
 
 ---
 
