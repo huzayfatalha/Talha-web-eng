@@ -28,7 +28,11 @@ if (isset($_POST['login'])) {
         $query = "SELECT * FROM admins WHERE username = '$username'";
         $result = mysqli_query($conn, $query);
 
-        if (mysqli_num_rows($result) > 0) {
+        // Check if query was successful
+        if (!$result) {
+            $message = "Database error: " . mysqli_error($conn);
+            $messageType = "error";
+        } elseif (mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
 
             // Check password (simple comparison - in real apps use password_hash)
