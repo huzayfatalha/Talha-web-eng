@@ -1911,6 +1911,66 @@ REFERENCES
 ---
 
 ================================================================================
+APPENDIX A: DATABASE ENTITY RELATIONSHIP DIAGRAM
+================================================================================
+
+FIGURE A2: ER DIAGRAM - LEAD TRACKING AI DATABASE SCHEMA
+
+┌──────────────────────────────────────┐         ┌──────────────────────────────────────┐
+│           ADMINS TABLE               │         │        CUSTOMERS TABLE               │
+├──────────────────────────────────────┤         ├──────────────────────────────────────┤
+│ PK  id                 INT            │         │ PK  id                 INT           │
+│     username           VARCHAR(50)    │◄────┐  │     name               VARCHAR(100)  │
+│     password           VARCHAR(255)   │     │  │     email              VARCHAR(100)  │
+│     (NOT NULL, UNIQUE) │     │  │     phone              VARCHAR(20)   │
+├──────────────────────────────────────┤     │  │     created_at         TIMESTAMP     │
+│ CONSTRAINTS:                          │     │  ├──────────────────────────────────────┤
+│ • Primary Key: id                     │     │  │ CONSTRAINTS:                         │
+│ • Unique: username                    │     │  │ • Primary Key: id                    │
+│ • Auto Increment: id                  │     │  │ • Auto Increment: id                 │
+└──────────────────────────────────────┘     │  │ • Default: created_at = CURRENT_TIME│
+                                             │  └──────────────────────────────────────┘
+                              1:N Relationship
+                            (Future Enhancement)
+
+ENTITY DESCRIPTIONS:
+
+ADMINS Entity:
+• Purpose: Store system users who can login and manage leads
+• Primary Key: id (automatically incremented)
+• Attributes:
+  - id: Unique identifier for each admin
+  - username: User's login name (3-20 characters, letters/numbers/underscores)
+  - password: User's password (stored as plain text in current version)
+• Constraints: Username must be unique; no two users can have same username
+
+CUSTOMERS Entity:
+• Purpose: Store lead information managed in the system
+• Primary Key: id (automatically incremented)
+• Attributes:
+  - id: Unique identifier for each lead
+  - name: Lead's full name (required, minimum 2 characters)
+  - email: Lead's email address (required, must be valid format)
+  - phone: Lead's phone number (optional, can be null)
+  - created_at: Timestamp when lead was added (auto-inserted)
+• Constraints: Name and email are required; phone is optional
+
+RELATIONSHIP:
+• Type: One-to-Many (1:N)
+• Current State: Not implemented (no foreign key)
+• Future Enhancement: Each admin can manage multiple customers
+  - Would add admin_id foreign key to customers table
+  - Enables multi-user system with user-specific lead management
+
+DATABASE NORMALIZATION:
+• Current Schema: Third Normal Form (3NF)
+• No redundant data storage
+• Each entity represents single concept
+• Suitable for small business lead management (< 1000 leads)
+
+---
+
+================================================================================
                             END OF REPORT
 ================================================================================
 
