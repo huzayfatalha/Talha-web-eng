@@ -1,50 +1,50 @@
 <?php
-// Include database connection
+
 include('db.php');
 
-// Initialize message
+
 $message = "";
 $messageType = "";
 
-// Check if already logged in
+
 session_start();
 if (isset($_SESSION['admin_id'])) {
     header("Location: index.php");
     exit;
 }
 
-// Handle login form submission
+
 if (isset($_POST['login'])) {
-    // Get form data
+
     $username = trim(mysqli_real_escape_string($conn, $_POST['username']));
     $password = trim(mysqli_real_escape_string($conn, $_POST['password']));
 
-    // Validate inputs
+
     if (empty($username) || empty($password)) {
         $message = "Username and Password are required!";
         $messageType = "error";
     } else {
-        // Check user in database
+        
         $query = "SELECT * FROM admins WHERE username = '$username'";
         $result = mysqli_query($conn, $query);
 
-        // Check if query was successful
+        
         if (!$result) {
             $message = "Database error: " . mysqli_error($conn);
             $messageType = "error";
         } elseif (mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
 
-            // Check password (simple comparison - in real apps use password_hash)
+          
             if ($password === $user['password']) {
-                // Login successful
+                
                 session_start();
                 $_SESSION['admin_id'] = $user['id'];
                 $_SESSION['admin_username'] = $user['username'];
                 $message = "Login successful! Redirecting...";
                 $messageType = "success";
 
-                // Redirect after 1 second
+                
                 echo "<script>
                     setTimeout(function() {
                         window.location.href = 'index.php';

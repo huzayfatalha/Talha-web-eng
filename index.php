@@ -1,5 +1,5 @@
 <?php
-// Include the header file
+
 include('includes/header.php');
 ?>
 
@@ -26,6 +26,6 @@ include('includes/header.php');
 </div>
 
 <?php
-// Include the footer file
+
 include('includes/footer.php');
 ?>

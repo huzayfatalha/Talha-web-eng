@@ -1,27 +1,27 @@
 <?php
-// Check if user is logged in
+
 include('../includes/session_check.php');
 
-// Include database connection
+
 include('../db.php');
 
-// Include header
+
 include('../includes/header.php');
 
-// Initialize variables
+
 $message = "";
 $messageType = ""; // "success" or "error"
 $customer = null;
 
-// Check if customer ID is provided in URL
+
 if (isset($_GET['id'])) {
     $customer_id = mysqli_real_escape_string($conn, $_GET['id']);
 
-    // Get customer data from database
+   
     $query = "SELECT * FROM customers WHERE id = '$customer_id'";
     $result = mysqli_query($conn, $query);
 
-    // Check if customer exists
+  
     if (mysqli_num_rows($result) > 0) {
         $customer = mysqli_fetch_assoc($result);
     } else {
@@ -33,43 +33,43 @@ if (isset($_GET['id'])) {
     $messageType = "error";
 }
 
-// Handle form submission (UPDATE)
+
 if (isset($_POST['submit']) && $customer) {
-    // Get form data and trim whitespace
+  
     $name = trim(mysqli_real_escape_string($conn, $_POST['name']));
     $email = trim(mysqli_real_escape_string($conn, $_POST['email']));
     $phone = trim(mysqli_real_escape_string($conn, $_POST['phone']));
 
-    // Server-side validation
+    
     $errors = array();
 
-    // Validate Name
+    
     if (empty($name)) {
         $errors[] = "Name is required!";
     } elseif (strlen($name) < 2) {
         $errors[] = "Name must be at least 2 characters long!";
     }
 
-    // Validate Email
+  
     if (empty($email)) {
         $errors[] = "Email is required!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Please enter a valid email address!";
     }
 
-    // Validate Phone (optional but if provided must be valid)
+   
     if (!empty($phone)) {
         if (!preg_match("/^[0-9\-\+\(\)\s]+$/", $phone)) {
             $errors[] = "Phone number should contain only numbers and common symbols!";
         }
     }
 
-    // If there are errors, show them
+    
     if (count($errors) > 0) {
         $message = implode("<br>", $errors);
         $messageType = "error";
     } else {
-        // All validations passed, update database
+       
         $update_query = "UPDATE customers SET
                         name = '$name',
                         email = '$email',
@@ -79,11 +79,11 @@ if (isset($_POST['submit']) && $customer) {
         if (mysqli_query($conn, $update_query)) {
             $message = "Customer updated successfully!";
             $messageType = "success";
-            // Update the customer variable so form shows new data
+           
             $customer['name'] = $name;
             $customer['email'] = $email;
             $customer['phone'] = $phone;
-            // Redirect after 2 seconds
+          
             echo "<script>
                 setTimeout(function() {
                     window.location.href = 'view_customers.php';

@@ -1,22 +1,22 @@
 <?php
-// Initialize message variable
+
 $message = "";
 $messageType = ""; // "success" or "error"
 
-// Include database connection
+
 include('db.php');
 
-// Check if form is submitted
+
 if (isset($_POST['signup'])) {
     // Get form data and trim whitespace
     $username = trim(mysqli_real_escape_string($conn, $_POST['username']));
     $password = trim(mysqli_real_escape_string($conn, $_POST['password']));
     $confirm_password = trim(mysqli_real_escape_string($conn, $_POST['confirm_password']));
 
-    // Server-side validation
+    
     $errors = array();
 
-    // Validate Username
+    
     if (empty($username)) {
         $errors[] = "Username is required!";
     } elseif (strlen($username) < 3) {
@@ -27,7 +27,7 @@ if (isset($_POST['signup'])) {
         $errors[] = "Username can only contain letters, numbers, and underscores!";
     }
 
-    // Check if username already exists
+    
     if (empty($errors) || count($errors) == 1) {
         $check_query = "SELECT * FROM admins WHERE username = '$username'";
         $check_result = mysqli_query($conn, $check_query);
@@ -37,29 +37,29 @@ if (isset($_POST['signup'])) {
         }
     }
 
-    // Validate Password
+
     if (empty($password)) {
         $errors[] = "Password is required!";
     } elseif (strlen($password) < 4) {
         $errors[] = "Password must be at least 4 characters long!";
     }
 
-    // Validate Confirm Password
+
     if (empty($confirm_password)) {
         $errors[] = "Please confirm your password!";
     }
 
-    // Check if passwords match
+    
     if ($password !== $confirm_password) {
         $errors[] = "Passwords do not match!";
     }
 
-    // If there are errors, show them
+    
     if (count($errors) > 0) {
         $message = implode("<br>", $errors);
         $messageType = "error";
     } else {
-        // All validations passed, insert into database
+        
         $insert_query = "INSERT INTO admins (username, password) VALUES ('$username', '$password')";
 
         if (mysqli_query($conn, $insert_query)) {

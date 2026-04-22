@@ -1,30 +1,30 @@
 <?php
-// Check if user is logged in
+
 include('../includes/session_check.php');
 
-// Include database connection
+
 include('../db.php');
 
-// Include header
+
 include('../includes/header.php');
 
-// Initialize search variable
+
 $search = "";
 $page = 1;
 $items_per_page = 5;
 
-// Check if search form was submitted
+
 if (isset($_POST['search'])) {
     $search = mysqli_real_escape_string($conn, $_POST['search']);
 }
 
-// Get current page from URL
+
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
     if ($page < 1) $page = 1;
 }
 
-// Build the base query
+
 if (!empty($search)) {
     $count_query = "SELECT COUNT(*) as total FROM customers WHERE name LIKE '%$search%' OR email LIKE '%$search%'";
     $query = "SELECT * FROM customers WHERE name LIKE '%$search%' OR email LIKE '%$search%' ORDER BY id DESC";
@@ -33,20 +33,20 @@ if (!empty($search)) {
     $query = "SELECT * FROM customers ORDER BY id DESC";
 }
 
-// Get total count
+
 $count_result = mysqli_query($conn, $count_query);
 $count_row = mysqli_fetch_assoc($count_result);
 $total_customers = $count_row['total'];
 $total_pages = ceil($total_customers / $items_per_page);
 
-// Calculate LIMIT and OFFSET
+
 $offset = ($page - 1) * $items_per_page;
 $query .= " LIMIT $items_per_page OFFSET $offset";
 
-// Execute query
+
 $result = mysqli_query($conn, $query);
 
-// Handle delete action
+
 if (isset($_GET['delete'])) {
     $customer_id = mysqli_real_escape_string($conn, $_GET['delete']);
     $delete_query = "DELETE FROM customers WHERE id = '$customer_id'";
@@ -105,7 +105,7 @@ if (isset($_GET['delete'])) {
     </div>
 
     <?php
-    // Check if there are any customers
+    
     if (mysqli_num_rows($result) > 0) {
         echo "<table>";
         echo "<thead>";
@@ -120,7 +120,7 @@ if (isset($_GET['delete'])) {
         echo "</thead>";
         echo "<tbody>";
 
-        // Loop through each customer and display in table
+       
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row['id'] . "</td>";
@@ -138,11 +138,11 @@ if (isset($_GET['delete'])) {
         echo "</tbody>";
         echo "</table>";
 
-        // Pagination controls
+       
         if ($total_pages > 1) {
             echo "<div style='display: flex; justify-content: center; gap: 10px; margin-top: 20px; align-items: center;'>";
 
-            // Previous button
+            
             if ($page > 1) {
                 $prev_page = $page - 1;
                 if (!empty($search)) {
@@ -154,7 +154,7 @@ if (isset($_GET['delete'])) {
                 echo "<span style='padding: 10px 15px; background-color: #bdc3c7; color: white; border-radius: 4px; cursor: not-allowed;'>← Previous</span>";
             }
 
-            // Page numbers
+            
             echo "<span style='padding: 10px 15px;'>";
             for ($i = 1; $i <= $total_pages; $i++) {
                 if ($i == $page) {
@@ -169,7 +169,7 @@ if (isset($_GET['delete'])) {
             }
             echo "</span>";
 
-            // Next button
+            
             if ($page < $total_pages) {
                 $next_page = $page + 1;
                 if (!empty($search)) {
@@ -185,7 +185,7 @@ if (isset($_GET['delete'])) {
         }
 
     } else {
-        // Show message if no customers found
+      
         if (!empty($search)) {
             echo "<p style='text-align: center; padding: 20px; background-color: #fff3cd; border-radius: 4px;'>No customers found for \"<strong>" . $search . "</strong>\". <a href='view_customers.php'>View all customers</a></p>";
         } else {
@@ -193,13 +193,13 @@ if (isset($_GET['delete'])) {
         }
     }
 
-    // Close database connection
+    
     mysqli_close($conn);
     ?>
 </div>
 
 <?php
-// Include footer
+
 include('../includes/footer.php');
 ?>
 
